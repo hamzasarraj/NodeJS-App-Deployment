@@ -49,10 +49,6 @@ stages:
       inputs:
         command: 'install'
         workingDir: '$(Build.SourcesDirectory)'
-    - task: Npm@1
-      inputs:
-        command: 'custom'
-        customCommand: 'run test'
   # Build an image from Dockerfile and push it to the Azure Container Registry, publish the Artifact for Release Pipeline
   - job: Build
     displayName: Build
