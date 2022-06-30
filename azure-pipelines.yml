@@ -14,7 +14,7 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
   # Agent VM image name
-  pool: 'Devopsproject'
+  pool: 'DevopsProject'
 
 #Stages
 stages:
@@ -24,8 +24,8 @@ stages:
   # Print all the parameters
   - job: Print_Parameters
     displayName: Print Parameters
-    pool:
-      vmImage: $(vmImageName)
+    pool: 'DevopsProject'
+      
     steps:
     - task: Bash@3
       inputs:
@@ -37,13 +37,13 @@ stages:
           echo 'Azure container Registry: ' $(containerRegistry)
           echo 'Dockerfile Path: ' $(dockerfilePath)
           echo 'Build ID: ' $(tag)
-          echo 'VM Image Name: ' $(vmImageName)
+          
   # Run npm install and npm test
   - job: Application_Tests
     displayName: Npm Install and Npm Test
     dependsOn: Print_Parameters
-    pool:
-      vmImage: $(vmImageName)
+    pool: 'DevopsProject'
+      
     steps:
     - task: Npm@1
       inputs:
@@ -57,8 +57,8 @@ stages:
   - job: Build
     displayName: Build
     dependsOn: Application_Tests
-    pool:
-      vmImage: $(vmImageName)
+    pool: 'DevopsProject'
+      
     steps:
     - task: Docker@2
       displayName: Build and push the image to the Azure Container Registry
